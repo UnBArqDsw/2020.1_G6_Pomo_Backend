@@ -1,25 +1,19 @@
-# RepositorioTemplate
-Esse repositório é para ser utilizado pelos grupos como um template inicial, da home page do Projeto.
-Demais diretrizes sobre a organização da wiki constam no Moodle Aprender 3.
-**!! Atenção: Renomeie o seu repositório para (Ano.Semestre)_(Grupo)_(NomeDoProjeto). !!** 
 
-**!! *Não coloque os nomes dos alunos no título do repositório*. Exemplo de título correto: 2020.1_G1_ProjetoPandora!!**
- 
- (Apague essa seção)
+# Pomo Backend
 
-# NomedoProjeto
-
-**Número do Grupo**: XX<br>
+**Número do Grupo**: 06<br>
 **Código da Disciplina**: FGA0208-T01<br>
 
 ## Alunos
 |Matrícula | Aluno |
-| -- | -- |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
+| 16/0111978  |  [André Eduardo](https://github.com/Andre-Eduardo "User's github") |
+| 16/0112974  |  [Arthur Rodrigues](https://github.com/arthurarp "User's github") |
+| 17/0013651  |  [João Gabriel Antunes](https://github.com/flyerjohn "User's github") |
+| 16/0135681  |  [Marco Antônio Costa](https://github.com/markinlimac "User's github") |
+| 17/0045943  |  [Thallys Braz](https://github.com/thallysbraz "User's github") |
 
 ## Sobre 
-Descreva o seu projeto em linhas gerais. 
+Repositório destinado para a implementação do backend do projeto Pomo.
 
 ## Screenshots
 Adicione 3 ou mais screenshots do projeto em termos de interface e funcionamento.
