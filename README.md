@@ -6,6 +6,7 @@
 
 ## Alunos
 |Matrícula | Aluno |
+| -- | -- |
 | 16/0111978  |  [André Eduardo](https://github.com/Andre-Eduardo "User's github") |
 | 16/0112974  |  [Arthur Rodrigues](https://github.com/arthurarp "User's github") |
 | 17/0013651  |  [João Gabriel Antunes](https://github.com/flyerjohn "User's github") |
