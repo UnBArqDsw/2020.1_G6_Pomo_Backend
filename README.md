@@ -24,13 +24,67 @@ Adicione 3 ou mais screenshots do projeto em termos de interface e funcionamento
 ## Instalação
 
 **Linguagens**: Javascript<br>
-**Tecnologias**: Node.js<br>
+**Tecnologias**: Node.js, Docker CE<br>
 Descreva os pré-requisitos para rodar o seu projeto e os comandos necessários.
 Insira um manual ou um script para auxiliar ainda mais.
 
 ## Uso
 
-Explique como usar seu projeto caso haja algum passo a passo após o comando de execução.
+### Para executar o projeto
+
+1. Clone o repositório com o comando, via terminal:
+
+```bash
+git clone: https://github.com/UnBArqDsw/2020.1_G6_Pomo_Backend
+```
+
+2. Verifique a disponibilidade de host:
+
+```bash
+Verifique se a porta localhost 3000  não estão sendo usada.
+```
+
+3. Entre na pasta `backend` dentro do projeto
+
+4. Execute o seguinte comando:
+
+```bash
+yarn install
+```
+
+5. Em seguida, via terminal, execute o seguinte comando:
+
+```bash
+docker run --name "NOME_DO_BANCO" -e POSTGRES_PASSWORD="senha" -p 5432:5432 -d postgres
+```
+
+6. Entre no projeto e crie um arquivo com o nome:
+
+```bash
+.env
+```
+
+6.1 Dentro dele coloque o seguinte código:
+
+```bash
+DB_HOST=localhost
+DB_USER=postgres
+DB_PASS="senha" -> senha que você colocou no docker
+DB_NAME="NOME_DO_BANCO"
+DB_PORT=5432
+```
+
+7. Agora, execute o comando:
+
+```bash
+yarn dev
+```
+
+8. Se tudo deu certo, no terminal exibirá a seguinte mensagem:
+
+```bash
+server rodando na porta: 3002
+```
 
 ## Vídeo
 
