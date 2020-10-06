@@ -92,4 +92,28 @@ Adicione 1 ou mais vídeos com a execução do projeto final.
 
 ## Outros
 
-Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
+### Migrations
+
+Para criar migrations deve executar o comando, lembrando de informar o nome da migration que esteja criando:
+
+```bash
+yarn sequelize migration:create --name=NomeDaMigration
+```
+
+Para fazer a modificação no banco de dados, execute:
+
+```bash
+yarn sequelize db:migrate
+```
+
+Para desfazer a ultima modificação no banco de dados, execute:
+
+```bash
+yarn sequelize db:migrate:undo
+```
+
+Para desfazer TODAS modificações no Banco de Dados, execute:
+
+```bash
+yarn sequelize db:migrate:undo:all
+```
