@@ -1,20 +1,11 @@
 import { Router } from "express";
 
 import UserController from "./app/controllers/UserController";
-import Task from './app/models/Task';
+import TaskController from "./app/controllers/TaskController";
 
 const routes = new Router();
 
-routes.get('/', async (req, res) => { // exemplo para testar se esta funcionando
-    const user = await Task.create({
-        name: 'Estudar calculo',
-        time: '2 horas',
-        icon: 'calculo',
-        color: 'red',
-    });
-
-    return res.json(user);
-});
+routes.post("/tasks", TaskController.create);
 
 routes.post("/users", UserController.store);
 
