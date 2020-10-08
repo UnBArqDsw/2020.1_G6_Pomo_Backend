@@ -36,6 +36,23 @@ class TaskController {
     }
   }
 
+    async read(req, res) {
+
+        const allTasks = await Task.findAll();
+        return res.json(allTasks)
+        
+    }
+
+    async delete(req, res) {
+        const { name } = req.params;
+
+        const element = await Task.destroy({
+            where: {name: name}
+        });
+
+        return res.json({message: 'Elemento excluído com sucesso!'});
+    }
+
 }
 
 export default new TaskController();

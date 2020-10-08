@@ -5,7 +5,9 @@ import TaskController from "./app/controllers/TaskController";
 
 const routes = new Router();
 
-routes.post("/tasks", TaskController.create);
+routes.get('/tasks', TaskController.read);
+routes.post('/tasks', TaskController.create);
+routes.delete('/tasks/:name', TaskController.delete)
 
 routes.post("/users", UserController.store);
 
