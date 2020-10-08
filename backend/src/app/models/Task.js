@@ -8,8 +8,6 @@ class Task extends Model {
         time: Sequelize.STRING,
         icon: Sequelize.STRING,
         color: Sequelize.STRING,
-        createdAt: Sequelize.DATE,
-        
       },
       { sequelize },
     );
@@ -20,4 +18,4 @@ class Task extends Model {
 
 }
 
-export default User;
+export default Task;
