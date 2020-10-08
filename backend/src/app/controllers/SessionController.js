@@ -36,7 +36,7 @@ class SessionController {
           error: "Usuário/Senha incorreto",
         });
       }
-      console.log(`authConfig.secret: ${authConfig.secret}`);
+
       //se a senha estiver correta
       const { id, name, provider } = user; //salva dados do usuário para criar sessão
       return res.json({
