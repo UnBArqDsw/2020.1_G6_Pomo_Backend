@@ -4,10 +4,11 @@ import mongoose from "mongoose";
 import databaseConfig from "../config/database"; //model de config
 
 import User from "../app/models/User"; //Model de user
+import Timer from "../app/models/Timer"; //Moodel do Timer
 //import File from "../app/models/File"; //Model de Arquivos
 //import Appointment from "../app/models/Appointment"; //Model de Agendamentos
 
-const models = [User]; //Array com todos os models
+const models = [User, Timer]; //Array com todos os models
 
 class Database {
   constructor() {
