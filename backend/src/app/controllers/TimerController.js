@@ -34,6 +34,18 @@ class TimerController {
         }
     }
 
+    async read(req, res) {
+        try {
+            const allTimers = await Timer.findAll();
+            return res.json(allTimers)
+        } catch(erros) {
+            return res.json({
+                error: "Houve um erro interno na aplicação.",
+                erro: erros
+            });
+        }
+    }
+
 }
 
 export default new TimerController();
