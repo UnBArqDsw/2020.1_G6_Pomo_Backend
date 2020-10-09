@@ -81,7 +81,21 @@ class TimerController {
         
     }
 
-    
+    async delete(req, res) {
+        try {
+            const { id } = req.params;
+            const element = await Timer.destroy({
+                where: { id: id }
+            });
+            return res.json({ message: "Elemento excluído com sucesso!" });
+
+        } catch(erros) {
+            return res.json({
+                error: "Houve um erro interno na aplicação",
+                erro: erros
+            });
+        }
+    }
 }
 
 export default new TimerController();
