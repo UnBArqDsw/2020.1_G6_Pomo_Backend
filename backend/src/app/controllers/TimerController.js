@@ -46,6 +46,42 @@ class TimerController {
         }
     }
 
+    async update(req, res) {
+        try {
+            const schema = Yup.object().shape({
+                startDate: Yup.startDate().required(),
+                currentDate: Yup.date().required(),
+                endDate: Yup.date().required()
+            });
+    
+            if (!(await schema.isValid(req.body))) {
+                return res.status(400).json({ error: "Data invalida."});
+            }
+    
+            const { id } = await req.params;
+            const dateExists = await Timer.findOne({
+                where: { id: id }
+            });
+    
+            if(dateExists) {
+                const element = await Timer.update(req.body, {
+                    where: { id: id}
+                });
+                return res.status(200).json(req.body);
+            }
+    
+            return res.status(400).json({ error: "Data não existe." });
+                
+        } catch(erros) {
+            return res.json({
+                error: "Houve um erro interno na aplicação.",
+                erro: erros
+            });
+        }
+        
+    }
+
+    
 }
 
 export default new TimerController();
