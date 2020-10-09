@@ -6,8 +6,9 @@ import databaseConfig from "../config/database"; //model de config
 import User from "../app/models/User"; //Model de user
 import File from "../app/models/File"; //Model de Arquivos
 import Task from "../app/models/Task"; //Model de user
+import Timer from "../app/models/Timer"; //Model de timer
 
-const models = [User, File, Task]; //Array com todos os models
+const models = [User, File, Task, Timer]; //Array com todos os models
 
 class Database {
   constructor() {
