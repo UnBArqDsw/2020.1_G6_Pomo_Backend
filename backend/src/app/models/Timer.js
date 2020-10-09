@@ -10,5 +10,9 @@ class Timer extends Model {
             },
         { sequelize }
         );
+
+        return this;
     }
 }
+
+export default Timer;
