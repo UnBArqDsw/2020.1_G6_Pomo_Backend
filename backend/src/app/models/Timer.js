@@ -8,7 +8,7 @@ class Timer extends Model {
                 endDate: Sequelize.DATE,
                 currentDate: Sequelize.DATE
             },
-        { sequelize }
+        { sequelize },
         );
 
         return this;
