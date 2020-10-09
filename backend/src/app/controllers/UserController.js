@@ -1,7 +1,7 @@
 import * as Yup from "yup"; // Importando yup
 
 import User from "../models/User"; // Model de usuário
-//import File from "../models/File";
+import File from "../models/File";
 
 class UserController {
   //store para criar usuário
@@ -44,7 +44,7 @@ class UserController {
   }
 
   //update para atualizar usuário
-  /*async update(req, res) {
+  async update(req, res) {
     try {
       //criando validações com biblioteca Yup
       const schema = Yup.object().shape({
@@ -76,14 +76,12 @@ class UserController {
         const userExists = await User.findOne({ where: { email } });
 
         if (userExists) {
-          return res.status(400).json({ error: "User already exists" });
+          return res.status(400).json({ error: "Usuário inválido!" });
         }
       }
       //verificando se a senha antiga está correta com a informada
       if (oldPassword && !(await user.checkPassword(oldPassword))) {
-        return res
-          .status(401)
-          .json({ error: "Password does not math. Invalid" });
+        return res.status(401).json({ error: "Senha não bate" });
       }
 
       await user.update(req.body); //salvando atualização
@@ -100,12 +98,9 @@ class UserController {
 
       return res.json({ id, name, email, avatar }); //retornando dados atualizados
     } catch (erros) {
-      return res.json({
-        error: "Houve error interno na aplicação",
-        erro: erros,
-      });
+      return res.json({ error: "Houve error interno na aplicação" });
     }
-  }*/
+  }
 }
 
 export default new UserController();
