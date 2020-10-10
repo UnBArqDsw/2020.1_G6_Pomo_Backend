@@ -1,6 +1,6 @@
 import Sequelize, { Model } from 'sequelize';
 
-class Appointment extends Model {
+class Chat extends Model {
   static init(sequelize) {
     super.init(
       
@@ -14,4 +14,4 @@ class Appointment extends Model {
     this.hasMany(models.Message, { foreignKey: "message_id", as: "message" });
   }
 }
-export default Appointment;
+export default Chat;
