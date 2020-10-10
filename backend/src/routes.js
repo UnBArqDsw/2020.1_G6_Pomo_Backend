@@ -23,6 +23,7 @@ routes.post("/users", UserController.store);
 routes.post("/session", SessionController.store);
 
 routes.post("/chat", ChatController.store); // chat
+routes.get("/chat/:id", ChatController.index); // chat
 routes.post("/message", MessageController.store); // mensagem
 
 routes.use(authMiddleware); //Middleware global || valido para rotas abaixo

@@ -46,10 +46,22 @@ class ChatController {
     }
   }
 
-async destroy({params}){
-  const chat = await Chat.findAll(params.id);
+async destroy({req}){
+  const chat = await Chat.findAll(req.body.id);
   await chat.delete()
 }
+
+async index({req,res}){
+
+
+  const data = await Chat.findByPk(1, {include: ['message']})
+
+
+return res.json({
+  data
+})
+}
+
 }
 
 export default new ChatController();
