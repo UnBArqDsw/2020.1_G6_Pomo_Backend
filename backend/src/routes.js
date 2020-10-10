@@ -24,6 +24,7 @@ routes.post("/session", SessionController.store);
 
 routes.post("/chat", ChatController.store); // chat
 routes.get("/chat/:id", ChatController.index); // chat
+routes.delete("/chat/:id", ChatController.delete); // chat
 routes.post("/message", MessageController.store); // mensagem
 
 routes.use(authMiddleware); //Middleware global || valido para rotas abaixo

@@ -46,19 +46,37 @@ class ChatController {
     }
   }
 
-async destroy({req}){
-  const chat = await Chat.findAll(req.body.id);
-  await chat.delete()
+
+
+
+
+async delete(req, res) {
+  try {
+      const { id } = req.params;
+
+      const element = await Chat.destroy({
+          where: {id: id}
+      });
+
+      return res.json({message: 'Chat excluído com sucesso!'});
+
+  } catch (erros) {
+      return res.json({
+      error: "Houve um erro interno na aplicação",
+      erro: erros,
+      });
+  }
 }
 
-async index({req,res}){
+async index(req,res){
+const {id} = req.params
 
-
-  const data = await Chat.findByPk(1, {include: ['message']})
+  const data = await Chat.findByPk(id, {include: ['message']})
 
 
 return res.json({
   data
+  
 })
 }
 
