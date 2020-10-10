@@ -21,17 +21,21 @@ class ChatController {
       //Se passar ... next();
 
       //verificando se existe chat
+      
       const ChatExists = await Chat.findOne({
-        where: { user_id: req.body.user_id,receiver_id:req.body.receiver_id },
+        where: 
+        { user_id: req.body.user_id,
+          receiver_id:req.body.receiver_id },
       });
-
+      console.log(ChatExists)
       //se encontrar algum registro
+  
       if (ChatExists) {
         return res.json({ create: "true",id:userExists.id });
       }
 
       //se não encontrou:
-      const { id, user_id, receiver_id } = await User.create(req.body);
+       const { id, user_id, receiver_id } = await Chat.create(req.body);
 
       return res.json({ id, user_id, receiver_id }); //retornando somente dos dados importantes para o front
     } catch (erros) {

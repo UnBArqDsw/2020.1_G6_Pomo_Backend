@@ -22,12 +22,16 @@ module.exports = {
       },
       chat_id:{
         type: Sequelize.INTEGER,
-        references: { model: 'chat', key: 'id' },
+        references: { model: 'chats', key: 'id' },
         onDelete: 'CASCADE',
         onUpdade: 'CASCADE',
         allowNull: true,
       },
       created_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },

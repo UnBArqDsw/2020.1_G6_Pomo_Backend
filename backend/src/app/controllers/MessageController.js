@@ -32,11 +32,13 @@ class MenssageController {
       }
 
       //se  encontrou:
-      const {id:Message_id} = await Menssage.create(req.body);
-      ChatExists.merge(Message_id);
-     await ChatExists.save()
+      const { id, content, chat_id } = await Menssage.create(req.body);
 
-      return res.json({ ChatExists }); //retornando somente dos dados importantes para o front
+    //   const {id:Message_id} = await Menssage.create(req.body);
+    //   ChatExists.merge(Message_id);
+    //  await ChatExists.save()
+
+      return res.json({ id, content, chat_id }); //retornando somente dos dados importantes para o front
     } catch (erros) {
       return res.json({
         error: "Houve error interno na aplicação",
