@@ -1,8 +1,7 @@
 import * as Yup from "yup"; // Importando yup
 
-import Menssage from "../models/Message"; // Model de usuário
+import Menssage from "../models/Message"; 
 import Chat from "../models/Chat"
-import Message from "../models/Message";
 
 class MenssageController {
   async store(req, res) {

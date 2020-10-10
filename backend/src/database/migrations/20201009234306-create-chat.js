@@ -8,14 +8,15 @@ module.exports = {
           type:Sequelize.INTEGER,
           allowNull: false,
           autoIncrement:true,
+          primaryKey: true,
         },
-        message_id: {
-          type: Sequelize.INTEGER,
-          references: { model: 'messages', key: 'id' },
-          onDelete: 'SET NULL',
-          onUpdade: 'CASCADE',
-        allowNull:true
-        },
+        // message_id: {
+        //   type: Sequelize.INTEGER,
+        //   references: { model: 'messages', key: 'id' },
+        //   onDelete: 'SET NULL',
+        //   onUpdade: 'CASCADE',
+        // allowNull:true
+        // },
         user_id: {
           type: Sequelize.INTEGER,
           references: { model: 'users', key: 'id' },

@@ -1,6 +1,5 @@
 import * as Yup from "yup"; // Importando yup
 
-import Menssage from "../models/Message"; // Model de usuário
 import Chat from "../models/Chat"
 
 class ChatController {

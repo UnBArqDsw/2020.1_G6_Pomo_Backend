@@ -17,6 +17,7 @@ class Message extends Model {
   //metodo de ralacionamento
   static associate(models) {
     this.belongsTo(models.File, { foreignKey: "file_id", as: "file" });
+    this.belongsTo(models.Chat, { foreignKey: "chat_id", as: "chat" });
   }
 
   

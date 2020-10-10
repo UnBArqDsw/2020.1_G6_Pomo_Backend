@@ -2,11 +2,12 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('message', {
+    await queryInterface.createTable('messages', {
     id: {
       type:Sequelize.INTEGER,
       allowNull: false,
       autoIncrement:true,
+      primaryKey: true,
     },
     content: {
       type:Sequelize.STRING,
@@ -19,6 +20,13 @@ module.exports = {
         onUpdade: 'CASCADE',
         allowNull: true,
       },
+      chat_id:{
+        type: Sequelize.INTEGER,
+        references: { model: 'chat', key: 'id' },
+        onDelete: 'CASCADE',
+        onUpdade: 'CASCADE',
+        allowNull: true,
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -28,6 +36,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    await queryInterface.dropTable('message');
+    await queryInterface.dropTable('messages');
   }
 };

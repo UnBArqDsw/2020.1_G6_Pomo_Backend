@@ -3,7 +3,8 @@ import Sequelize, { Model } from 'sequelize';
 class Chat extends Model {
   static init(sequelize) {
     super.init(
-      
+      {},
+       { sequelize },
     );
     return this;
   }
