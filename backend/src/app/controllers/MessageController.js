@@ -2,15 +2,16 @@ import * as Yup from "yup"; // Importando yup
 
 import Menssage from "../models/Message"; // Model de usuário
 import Chat from "../models/Chat"
+import Message from "../models/Message";
 
-class ChatController {
+class MenssageController {
   async store(req, res) {
     try {
       //criando validações
       const schema = Yup.object().shape({
+        chat_id:Yup.number().required(),
+        content:Yup.string().required(),
         
-        user_id: Yup.number().required(),
-        receiver_id: Yup.number().required(),
 
       });
 
@@ -23,18 +24,20 @@ class ChatController {
 
       //verificando se existe chat
       const ChatExists = await Chat.findOne({
-        where: { user_id: req.body.user_id,receiver_id:req.body.receiver_id },
+        where: { id: req.body.chat_id },
       });
 
-      //se encontrar algum registro
-      if (ChatExists) {
-        return res.json({ create: "true",id:userExists.id });
+      //se não encontrou:
+      if (!ChatExists) {
+        return res.status(400).json({ error: "Chat não criado" });
       }
 
-      //se não encontrou:
-      const { id, user_id, receiver_id } = await User.create(req.body);
+      //se  encontrou:
+      const {id:Message_id} = await Menssage.create(req.body);
+      ChatExists.merge(Message_id);
+     await ChatExists.save()
 
-      return res.json({ id, user_id, receiver_id }); //retornando somente dos dados importantes para o front
+      return res.json({ ChatExists }); //retornando somente dos dados importantes para o front
     } catch (erros) {
       return res.json({
         error: "Houve error interno na aplicação",
@@ -43,10 +46,7 @@ class ChatController {
     }
   }
 
-async destroy({params}){
-  const chat = await Chat.findAll(params.id);
-  await chat.delete()
-}
+
 }
 
-export default new ChatController();
+export default new MenssageController();
