@@ -9,8 +9,11 @@ module.exports = {
           allowNull: false,
           autoIncrement:true,
         },
-        message: {
-        type:Sequelize.STRING,
+        message_id: {
+          type: Sequelize.INTEGER,
+          references: { model: 'messages', key: 'id' },
+          onDelete: 'SET NULL',
+          onUpdade: 'CASCADE',
         allowNull:false
         },
         user_id: {
@@ -20,20 +23,14 @@ module.exports = {
           onUpdade: 'CASCADE',
           allowNull: true,
         },
-        receiver: {
+        receiver_id: {
           type: Sequelize.INTEGER,
           references: { model: 'users', key: 'id' },
           onDelete: 'SET NULL',
           onUpdade: 'CASCADE',
           allowNull: true,
         },
-        file_id:{
-          type: Sequelize.INTEGER,
-          references: { model: 'files', key: 'id' },
-          onDelete: 'SET NULL',
-          onUpdade: 'CASCADE',
-          allowNull: true,
-        },
+       
         created_at: {
           type: Sequelize.DATE,
           allowNull: false,
