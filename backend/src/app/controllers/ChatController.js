@@ -43,7 +43,10 @@ class UserController {
     }
   }
 
-
+async destroy({params}){
+  const chat = await Chat.findAll(params.id);
+  await chat.delete()
+}
 }
 
 export default new UserController();
