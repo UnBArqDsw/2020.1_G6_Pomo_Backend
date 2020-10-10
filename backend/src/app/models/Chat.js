@@ -3,14 +3,7 @@ import Sequelize, { Model } from 'sequelize';
 class Appointment extends Model {
   static init(sequelize) {
     super.init(
-      {
-        message:Sequelize.STRING,
-        
-      },
-
-      {
-        sequelize,
-      }
+      
     );
     return this;
   }
@@ -18,7 +11,7 @@ class Appointment extends Model {
   static associate(models) {
     this.belongsTo(models.User, { foreignKey: "user_id", as: "user" });
     this.belongsTo(models.User, { foreignKey: "receiver_id", as: "receiver" });
-    this.belongsTo(models.File, { foreignKey: "file_id", as: "file" });
+    this.hasMany(models.Message, { foreignKey: "message_id", as: "message" });
   }
 }
 export default Appointment;
