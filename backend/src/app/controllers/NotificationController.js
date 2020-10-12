@@ -17,6 +17,43 @@ class NotificationController {
       }
   }
 
+  async update(req, res) {
+
+    try {
+        const schema = Yup.object().shape({
+            title: Yup.string().required(),
+            body: Yup.string().required(),            
+        });
+        
+        if(!(await schema.isValid(req.body))) {
+            return res.status(400).json({ error: "Alguns campos incorretos" });
+        }
+        const { id } = await req.params;
+        const notificationExists = await Notification.findOne({
+            where: { id: id },
+        });    
+          
+        if(notificationExists) {
+            const element = await Notification.update(req.body, {
+                where: {id: id}
+        });
+            
+            return res.status(200).json(req.body);
+            
+        }
+
+        return res.status(400).json({ error: "Notificação não existe" });
+
+
+    } catch (erros) {
+        return res.json({
+        error: "Houve um erro interno na aplicação",
+        erro: erros,
+        });
+    }
+
+  }
+
 }
 
-export default new TaskController();
+export default new NotificationController();
