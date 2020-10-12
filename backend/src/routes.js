@@ -34,8 +34,8 @@ routes.put("/users", UserController.update);
 //routes.post("/files", upload.single("file"), FileController.store);
 
 routes.get("/notification", NotificationController.read);
-routes.put("/notification", NotificationController.update);
-routes.delete("/notification", NotificationController.delete);
+routes.put("/notification/:id", NotificationController.update);
+routes.delete("/notification/:id", NotificationController.delete);
 
 
 
