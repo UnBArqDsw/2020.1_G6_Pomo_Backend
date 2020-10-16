@@ -8,8 +8,9 @@ import UserController from "./app/controllers/UserController";
 import SessionController from "./app/controllers/SessionController";
 import FileController from "./app/controllers/FileController";
 import TaskController from "./app/controllers/TaskController";
-import ChatController from './app/controllers/ChatController'
-import MessageController from './app/controllers/MessageController'
+import ChatController from './app/controllers/ChatController';
+import MessageController from './app/controllers/MessageController';
+import NotificationController from './app/controllers/NotificationController';
 
 const routes = new Router();
 //const upload = multer(multerConfig);
@@ -31,6 +32,10 @@ routes.use(authMiddleware); //Middleware global || valido para rotas abaixo
 
 routes.put("/users", UserController.update);
 //routes.post("/files", upload.single("file"), FileController.store);
+
+routes.get("/notification", NotificationController.read);
+routes.put("/notification/:id", NotificationController.update);
+routes.delete("/notification/:id", NotificationController.delete);
 
 
 
