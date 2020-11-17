@@ -10,7 +10,7 @@ class TaskController {
         time: Yup.string().required(),
         icon: Yup.string().required(),
         color: Yup.string().required(),
-        
+        description: Yup.string().max(25),
       });
 
       if (!(await schema.isValid(req.body))) {
@@ -20,14 +20,16 @@ class TaskController {
         where: { name: req.body.name },
       });
 
-      
       if (taskExists) {
-        return res.status(400).json({ error: "Task com o mesmo nome já existe" });
+        return res
+          .status(400)
+          .json({ error: "Task com o mesmo nome já existe" });
       }
-      const { id, name, time, icon, color } = await Task.create(req.body);
+      const { id, name, time, icon, color, description } = await Task.create(
+        req.body,
+      );
 
-      return res.json({ id, name, time, icon, color  }); //retornando somente dos dados importantes para o front
-    
+      return res.json({ id, name, time, icon, color, description }); //retornando somente dos dados importantes para o front
     } catch (erros) {
       return res.json({
         error: "Houve error interno na aplicação",
@@ -36,81 +38,71 @@ class TaskController {
     }
   }
 
-    async read(req, res) {
-        try {
-            const allTasks = await Task.findAll();
-            return res.json(allTasks)
-
-        } catch (erros) {
-            return res.json({
-            error: "Houve um erro interno na aplicação",
-            erro: erros,
-            });
-        }
-        
+  async read(req, res) {
+    try {
+      const allTasks = await Task.findAll();
+      return res.json(allTasks);
+    } catch (erros) {
+      return res.json({
+        error: "Houve um erro interno na aplicação",
+        erro: erros,
+      });
     }
+  }
 
-    async update(req, res) {
+  async update(req, res) {
+    try {
+      const schema = Yup.object().shape({
+        name: Yup.string().required(),
+        time: Yup.string().required(),
+        icon: Yup.string().required(),
+        color: Yup.string().required(),
+        description: Yup.string(),
+      });
 
-        try {
-            const schema = Yup.object().shape({
-                name: Yup.string().required(),
-                time: Yup.string().required(),
-                icon: Yup.string().required(),
-                color: Yup.string().required(),
-                
-            });
-            
-            if(!(await schema.isValid(req.body))) {
-                return res.status(400).json({ error: "Alguns campos incorretos" });
-            }
-            const { id } = await req.params;
-            const taskExists = await Task.findOne({
-                where: { id: id },
-            });
-            
-            console.log(taskExists);
-        
-              
-            if(taskExists) {
-                const element = await Task.update(req.body, {
-                    where: {id: id}
-            });
-                
-                return res.status(200).json(req.body);
-                
-            }
+      if (!(await schema.isValid(req.body))) {
+        return res.status(400).json({ error: "Alguns campos incorretos" });
+      }
+      const { id } = await req.params;
+      const taskExists = await Task.findOne({
+        where: { id: id },
+      });
 
-            return res.status(400).json({ error: "Task não existe" });
+      console.log(taskExists);
 
+      if (taskExists) {
+        const element = await Task.update(req.body, {
+          where: { id: id },
+        });
 
-        } catch (erros) {
-            return res.json({
-            error: "Houve um erro interno na aplicação",
-            erro: erros,
-            });
-        }
+        return res.status(200).json(req.body);
+      }
 
+      return res.status(400).json({ error: "Task não existe" });
+    } catch (erros) {
+      return res.json({
+        error: "Houve um erro interno na aplicação",
+        erro: erros,
+      });
     }
+  }
 
-    async delete(req, res) {
-        try {
-            const { id } = req.params;
+  async delete(req, res) {
+    try {
+      const { id } = req.params;
 
-            const element = await Task.destroy({
-                where: {id: id}
-            });
+      const element = await Task.destroy({
+        where: { id: id },
+      });
 
-            return res.json({message: 'Elemento excluído com sucesso!'});
-
-        } catch (erros) {
-            return res.json({
-            error: "Houve um erro interno na aplicação",
-            erro: erros,
-            });
-        }
+      return res.json({ message: "Elemento excluído com sucesso!" });
+    } catch (erros) {
+      return res.json({
+        error: "Houve um erro interno na aplicação",
+        erro: erros,
+      });
     }
-
+  }
 }
 
 export default new TaskController();
