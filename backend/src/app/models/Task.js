@@ -8,14 +8,13 @@ class Task extends Model {
         time: Sequelize.STRING,
         icon: Sequelize.STRING,
         color: Sequelize.STRING,
+        description: Sequelize.STRING,
       },
       { sequelize },
     );
 
-
     return this;
   }
-
 }
 
 export default Task;
