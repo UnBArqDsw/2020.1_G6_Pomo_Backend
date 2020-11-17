@@ -25,6 +25,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      description: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -34,6 +38,6 @@ module.exports = {
         allowNull: false,
       },
     }),
-    
+
   down: queryInterface => queryInterface.dropTable("tasks"),
 };
