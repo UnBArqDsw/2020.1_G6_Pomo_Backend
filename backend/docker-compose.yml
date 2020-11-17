@@ -39,4 +39,4 @@ volumes:
 
 networks:
   app-connect:
-    name: Pomo
+    # name: Pomo
