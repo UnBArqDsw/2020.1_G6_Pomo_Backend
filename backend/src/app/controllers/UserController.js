@@ -1,5 +1,8 @@
+import jwt from "jsonwebtoken";
 import * as Yup from "yup"; // Importando yup
 
+import authConfig from "../../config/auth";
+import logger from "../../utils/logger";
 import User from "../models/User"; // Model de usuário
 import File from "../models/File";
 
@@ -16,6 +19,7 @@ class UserController {
 
       //Se nao passar na validação retorna
       if (!(await schema.isValid(req.body))) {
+        logger.error("validation fails");
         return res.status(400).json({ error: "validation fails" });
       }
 
@@ -28,14 +32,26 @@ class UserController {
 
       //se encontrar algum registro
       if (userExists) {
+        logger.error("Usuário ja cadastrado");
         return res.status(400).json({ error: "Usuário ja cadastrado" });
       }
 
       //se não encontrou:
       const { id, name, email, provider } = await User.create(req.body);
 
-      return res.json({ id, name, email, provider }); //retornando somente dos dados importantes para o front
+      return res.json({
+        user: {
+          id,
+          name,
+          email,
+          provider,
+        },
+        token: jwt.sign({ id }, authConfig.secret, {
+          expiresIn: authConfig.expiresIn,
+        }),
+      }); //retornando somente dos dados importantes para o front
     } catch (erros) {
+      logger.error("Houve erro interno na aplicação");
       return res.json({
         error: "Houve error interno na aplicação",
         erro: erros,

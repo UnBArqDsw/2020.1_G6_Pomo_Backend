@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 import * as Yup from "yup";
 
+import logger from "../../utils/logger";
 import authConfig from "../../config/auth"; //Configs para JWT
-
 import User from "../models/User"; //Model de Usuário
 //import File from "../models/File";
 
@@ -28,10 +28,12 @@ class SessionController {
 
       //se nao encontrar
       if (!user) {
+        logger.error("Usuário não existe");
         return res.status(401).json({ error: "Usuário não existe" });
       }
       //se encontrar, verifica a senha
       if (!(await user.checkPassword(password))) {
+        logger.error("Usuário/Senha incorreto");
         return res.status(401).json({
           error: "Usuário/Senha incorreto",
         });
@@ -51,6 +53,7 @@ class SessionController {
         }),
       });
     } catch (erros) {
+      logger.error("Houve erro interno na aplicação");
       return res.json({ msg: "houve erro interno na aplicação", erro: erros });
     }
   }
