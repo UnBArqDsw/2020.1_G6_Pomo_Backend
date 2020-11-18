@@ -13,6 +13,7 @@ class User extends Model {
       },
       { sequelize },
     );
+
     //Hook para user ser executado antes de salvar no Banco
     this.addHook("beforeSave", async user => {
       if (user.password) {
@@ -26,6 +27,7 @@ class User extends Model {
   //metodo de ralacionamento
   static associate(models) {
     this.belongsTo(models.File, { foreignKey: "avatar_id", as: "avatar" });
+    this.hasMany(models.Task, { foreignKey: "task_id", as: "task" });
   }
 
   checkPassword(password) {
