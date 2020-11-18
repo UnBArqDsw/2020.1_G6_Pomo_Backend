@@ -1,4 +1,5 @@
 import File from "../models/File";
+import logger from "../../utils/logger";
 
 class FileControler {
   //store para salvar arquivo recebido
@@ -13,6 +14,7 @@ class FileControler {
 
       return res.json(file); //retorna os dados
     } catch (erros) {
+      logger.error("Houve erro interno na aplicação");
       return res.json({
         erros: "Houve erro interno na aplicação",
         erro: erros,

@@ -1,21 +1,20 @@
 import * as Yup from "yup"; // Importando yup
-
-import Menssage from "../models/Message"; 
-import Chat from "../models/Chat"
+import logger from "../../utils/logger";
+import Menssage from "../models/Message";
+import Chat from "../models/Chat";
 
 class MenssageController {
   async store(req, res) {
     try {
       //criando validações
       const schema = Yup.object().shape({
-        chat_id:Yup.number().required(),
-        content:Yup.string().required(),
-        
-
+        chat_id: Yup.number().required(),
+        content: Yup.string().required(),
       });
 
       //Se nao passar na validação retorna
       if (!(await schema.isValid(req.body))) {
+        logger.error("validation fails");
         return res.status(400).json({ error: "validation fails" });
       }
 
@@ -34,20 +33,15 @@ class MenssageController {
       //se  encontrou:
       const { id, content, chat_id } = await Menssage.create(req.body);
 
-    //   const {id:Message_id} = await Menssage.create(req.body);
-    //   ChatExists.merge(Message_id);
-    //  await ChatExists.save()
-
       return res.json({ id, content, chat_id }); //retornando somente dos dados importantes para o front
     } catch (erros) {
+      logger.error("Houve erro interno na aplicação");
       return res.json({
-        error: "Houve error interno na aplicação",
+        error: "Houve erro interno na aplicação",
         erro: erros,
       });
     }
   }
-
-
 }
 
 export default new MenssageController();

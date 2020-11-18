@@ -14,6 +14,7 @@ class ChatController {
 
       //Se nao passar na validação retorna
       if (!(await schema.isValid(req.body))) {
+        logger.error("validation fails");
         return res.status(400).json({ error: "validation fails" });
       }
 
@@ -24,7 +25,7 @@ class ChatController {
       const ChatExists = await Chat.findOne({
         where: { user_id: req.body.user_id, receiver_id: req.body.receiver_id },
       });
-      console.log(ChatExists);
+      logger.info(ChatExists);
       //se encontrar algum registro
 
       if (ChatExists) {
@@ -36,6 +37,7 @@ class ChatController {
 
       return res.json({ id, user_id, receiver_id }); //retornando somente dos dados importantes para o front
     } catch (erros) {
+      logger.error("Houve um erro interno na aplicação");
       return res.json({
         error: "Houve error interno na aplicação",
         erro: erros,
@@ -53,21 +55,28 @@ class ChatController {
 
       return res.json({ message: "Chat excluído com sucesso!" });
     } catch (erros) {
+      logger.error("Houve erro interno na aplicação");
       return res.json({
-        error: "Houve um erro interno na aplicação",
+        error: "Houve erro interno na aplicação",
         erro: erros,
       });
     }
   }
 
   async index(req, res) {
-    const { id } = req.params;
+    try {
+      const { id } = req.params;
 
-    const data = await Chat.findByPk(id, { include: ["message"] });
+      const data = await Chat.findByPk(id, { include: ["message"] });
 
-    return res.json({
-      data,
-    });
+      return res.json({ data });
+    } catch (error) {
+      logger.error("Houve erro interno na aplicação");
+      return res.json({
+        err: "Houve erro interno na aplicação",
+        error,
+      });
+    }
   }
 }
 
