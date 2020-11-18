@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-
+import logger from "../../utils/logger";
 import Task from "../models/Task";
 
 class TaskController {
@@ -14,6 +14,7 @@ class TaskController {
       });
 
       if (!(await schema.isValid(req.body))) {
+        logger.error("Alguns campos incorretos");
         return res.status(400).json({ error: "Alguns campos incorretos" });
       }
       const taskExists = await Task.findOne({
@@ -31,6 +32,7 @@ class TaskController {
 
       return res.json({ id, name, time, icon, color, description }); //retornando somente dos dados importantes para o front
     } catch (erros) {
+      logger.error("Houve erro interno na aplicação");
       return res.json({
         error: "Houve error interno na aplicação",
         erro: erros,
@@ -41,8 +43,10 @@ class TaskController {
   async read(req, res) {
     try {
       const allTasks = await Task.findAll();
+      logger.info("retornando allTasks");
       return res.json(allTasks);
     } catch (erros) {
+      logger.error("Houve erro interno na aplicação");
       return res.json({
         error: "Houve um erro interno na aplicação",
         erro: erros,

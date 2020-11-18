@@ -1,5 +1,6 @@
 import * as Yup from "yup"; // Importando yup
 
+import logger from "../../utils/logger";
 import User from "../models/User"; // Model de usuário
 import File from "../models/File";
 
@@ -16,6 +17,7 @@ class UserController {
 
       //Se nao passar na validação retorna
       if (!(await schema.isValid(req.body))) {
+        logger.error("validation fails");
         return res.status(400).json({ error: "validation fails" });
       }
 
@@ -28,6 +30,7 @@ class UserController {
 
       //se encontrar algum registro
       if (userExists) {
+        logger.error("Usuário ja cadastrado");
         return res.status(400).json({ error: "Usuário ja cadastrado" });
       }
 
@@ -36,6 +39,7 @@ class UserController {
 
       return res.json({ id, name, email, provider }); //retornando somente dos dados importantes para o front
     } catch (erros) {
+      logger.error("Houve erro interno na aplicação");
       return res.json({
         error: "Houve error interno na aplicação",
         erro: erros,
