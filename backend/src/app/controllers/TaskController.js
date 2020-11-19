@@ -1,36 +1,45 @@
 import * as Yup from "yup";
 import logger from "../../utils/logger";
 import Task from "../models/Task";
+import User from "../models/User";
 
 class TaskController {
   async create(req, res) {
+    const { user_id } = req.params;
+    const { name, icon, color, description } = req.body;
     try {
       const schema = Yup.object().shape({
         name: Yup.string().required(),
-        time: Yup.string().required(),
         icon: Yup.string().required(),
         color: Yup.string().required(),
         description: Yup.string().max(25),
       });
-
       if (!(await schema.isValid(req.body))) {
         logger.error("Alguns campos incorretos");
         return res.status(400).json({ error: "Alguns campos incorretos" });
       }
-      const taskExists = await Task.findOne({
-        where: { name: req.body.name },
-      });
 
+      const user = await User.findByPk(user_id, {
+        include: { association: "tasks" },
+      });
+      let taskExists = false;
+      for (let task of user.tasks) {
+        if (task.name === name) taskExists = true;
+      }
       if (taskExists) {
         return res
           .status(400)
           .json({ error: "Task com o mesmo nome já existe" });
       }
-      const { id, name, time, icon, color, description } = await Task.create(
-        req.body,
-      );
+      const task = await Task.create({
+        name,
+        icon,
+        color,
+        description,
+        user_id,
+      });
 
-      return res.json({ id, name, time, icon, color, description }); //retornando somente dos dados importantes para o front
+      return res.json({ task }); //retornando somente dos dados importantes para o front
     } catch (erros) {
       logger.error("Houve erro interno na aplicação");
       return res.json({
@@ -42,13 +51,16 @@ class TaskController {
 
   async read(req, res) {
     try {
-      const allTasks = await Task.findAll();
-      logger.info("retornando allTasks");
-      return res.json(allTasks);
+      const { user_id } = req.params;
+
+      const user = await User.findByPk(user_id, {
+        include: { association: "tasks" },
+      });
+      return res.json(user.tasks);
     } catch (erros) {
       logger.error("Houve erro interno na aplicação");
       return res.json({
-        error: "Houve um erro interno na aplicação",
+        error: "Houve um erro interno1 na aplicação",
         erro: erros,
       });
     }
@@ -58,7 +70,6 @@ class TaskController {
     try {
       const schema = Yup.object().shape({
         name: Yup.string().required(),
-        time: Yup.string().required(),
         icon: Yup.string().required(),
         color: Yup.string().required(),
         description: Yup.string(),
