@@ -19,8 +19,8 @@ routes.get("/", (req, res) => {
   return res.json({ msg: "aqui" });
 });
 
-routes.get("/users/:user_id/tasks", TaskController.read);
-routes.post("/users/:user_id/tasks", TaskController.create);
+routes.get("/tasks", TaskController.read);
+routes.post("/tasks", TaskController.create);
 routes.put("/tasks/:id", TaskController.update);
 routes.delete("/tasks/:id", TaskController.delete);
 
