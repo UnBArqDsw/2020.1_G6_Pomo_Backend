@@ -5,7 +5,6 @@ class Task extends Model {
     super.init(
       {
         name: Sequelize.STRING,
-        time: Sequelize.STRING,
         icon: Sequelize.STRING,
         color: Sequelize.STRING,
         description: Sequelize.STRING,

@@ -6,11 +6,10 @@ import User from "../models/User";
 class TaskController {
   async create(req, res) {
     const { user_id } = req.params;
-    const { name, time, icon, color, description } = req.body;
+    const { name, icon, color, description } = req.body;
     try {
       const schema = Yup.object().shape({
         name: Yup.string().required(),
-        time: Yup.string().required(),
         icon: Yup.string().required(),
         color: Yup.string().required(),
         description: Yup.string().max(25),
@@ -34,7 +33,6 @@ class TaskController {
       }
       const task = await Task.create({
         name,
-        time,
         icon,
         color,
         description,
@@ -72,7 +70,6 @@ class TaskController {
     try {
       const schema = Yup.object().shape({
         name: Yup.string().required(),
-        time: Yup.string().required(),
         icon: Yup.string().required(),
         color: Yup.string().required(),
         description: Yup.string(),
