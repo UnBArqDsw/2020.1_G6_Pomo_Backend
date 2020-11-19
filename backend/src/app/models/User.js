@@ -27,7 +27,7 @@ class User extends Model {
   //metodo de ralacionamento
   static associate(models) {
     this.belongsTo(models.File, { foreignKey: "avatar_id", as: "avatar" });
-    this.hasMany(models.Task, { foreignKey: "task_id", as: "task" });
+    this.hasMany(models.Task, { foreignKey: "user_id", as: "tasks" });
   }
 
   checkPassword(password) {
