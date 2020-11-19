@@ -23,10 +23,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      time: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
       icon: {
         type: Sequelize.STRING,
         allowNull: false,
