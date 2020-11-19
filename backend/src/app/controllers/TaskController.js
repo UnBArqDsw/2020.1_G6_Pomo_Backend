@@ -19,9 +19,14 @@ class TaskController {
         logger.error("Alguns campos incorretos");
         return res.status(400).json({ error: "Alguns campos incorretos" });
       }
-      const taskExists = await Task.findOne({
-        where: { name: req.body.name },
+
+      const user = await User.findByPk(user_id, {
+        include: { association: "tasks" },
       });
+      let taskExists = false;
+      for (let task of user.tasks) {
+        if (task.name === name) taskExists = true;
+      }
       if (taskExists) {
         return res
           .status(400)
